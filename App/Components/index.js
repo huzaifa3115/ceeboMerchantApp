@@ -13,15 +13,33 @@ import {
 	Picker
 } from 'react-native';
 import { _ } from 'lodash';
+import Icon from "react-native-vector-icons/Feather";
 
 import styles from '../Screens/style';
 
 export class Header extends React.Component {
 	render() {
-		let style = this.props.style;
+        let style = this.props.style;
+        let props = this.props.props
 		return (
-			<View style={ { backgroundColor: '#1c2b35' } }>
-				{this.props.children}
+			<View style={ { backgroundColor: '#1c2b35', flexDirection : 'row', height: 60,} }>
+				<View style={ styles.header.left }>
+                    <View style={ { flexDirection : 'row', paddingHorizontal : 10 } }>
+                        <MenuIcon props={ props } />    
+                        <View style={ { paddingLeft : 10 } }>
+                            <Text style={ styles.header.title }>{'Merchant'}</Text>
+                        </View>
+
+                    </View>
+                </View>
+                <View style={ styles.header.center }></View>
+                <View style={ styles.header.right }>
+                    <View style={ { paddingHorizontal : 10 } }>
+                        <TouchableOpacity style={ styles.header.btn }>
+                            <Text style={ { color : '#fff', fontSize : 16, fontFamily : 'OpenSans-Bold' } }>{'Receiving New Orders'}</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
 			</View>
 		);
 	}
@@ -41,11 +59,22 @@ export class Wrapper extends React.Component {
 	render() {
 		return (
 			<View style={{ flex: 1, zIndex: 99, }}>
-				<ScrollView style={{ backgroundColor: '#f5f5f7', flex: 1 }} refreshControl={this.props.refreshControl}>
+				<ScrollView style={{ backgroundColor: '#f5f6f6', flex: 1 }} refreshControl={this.props.refreshControl}>
 					{this.props.children}
 				</ScrollView>
 				{this.props.footer}
 			</View>
+		);
+	}
+}
+
+export class MenuIcon extends React.Component {
+	render() {
+		let props = this.props.props;
+		return (
+			<TouchableOpacity activeOpacity={0.5} onPress={() => props.navigation.openDrawer()}  >
+				<Icon color={'#fff'} name="menu" size={23} />
+			</TouchableOpacity>
 		);
 	}
 }
@@ -78,10 +107,20 @@ export class CTouchable extends React.Component {
 
 }
 
+export class clearView extends React.Component {
+
+    render(){
+        let space = this.props.space;
+        return(
+            <View style={ { padding : space } } />
+        )
+    }
+}
+
 let inlineStyles = {
 	header: {
 		backgroundColor: '#ffffff',
-		height: 50,
+		height: 200,
 		shadowOffset: {
 			width: 0,
 			height: 1,

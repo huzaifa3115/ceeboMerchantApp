@@ -27,7 +27,7 @@ export class LoginScreen extends BaseScreen {
             <View style={ { backgroundColor : '#f5f6f6', flex : 1 } }>
                 <View style={ styles.loginScreenHeader }>
                     <View>
-                        <Text style={ styles.loginScreenHeader.textHeading }>{'RIDERS POS'}</Text>
+                        <Text style={ styles.loginScreenHeader.textHeading }>{'MERCHANT POS'}</Text>
                     </View>
                 </View>
                 <View style={ styles.loginMainContent }>
