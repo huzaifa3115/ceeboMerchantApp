@@ -22,7 +22,7 @@ export class Header extends React.Component {
         let style = this.props.style;
         let props = this.props.props
 		return (
-			<View style={ { backgroundColor: '#1c2b35', flexDirection : 'row', height: 60,} }>
+			<View style={ [{ backgroundColor: '#fff', flexDirection : 'row', height: 60},styles.borderShadowHeader] }>
 				<View style={ styles.header.left }>
                     <View style={ { flexDirection : 'row', paddingHorizontal : 10 } }>
                         <MenuIcon props={ props } />    
@@ -73,7 +73,7 @@ export class MenuIcon extends React.Component {
 		let props = this.props.props;
 		return (
 			<TouchableOpacity activeOpacity={0.5} onPress={() => props.navigation.openDrawer()}  >
-				<Icon color={'#fff'} name="menu" size={23} />
+				<Icon color={'#0077ae'} name="menu" size={25} />
 			</TouchableOpacity>
 		);
 	}

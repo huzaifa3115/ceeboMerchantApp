@@ -13,14 +13,14 @@ import { createBottomTabNavigator, createAppContainer, TabNavigator, TabBarBotto
 
 import { LoginScreen } from './LoginScreen';
 import { TrainingScreen } from './TrainingScreen';
-import { ConfrimOrderScreen } from './ConfrimOrderScreen';
+import { OrderScreen } from './OrderScreen';
 import { SettingScreens } from './SettingScreens';
 
 export default createBottomTabNavigator(
 	{
 		Home: TrainingScreen,
 		Settings: SettingScreens,
-		Orders: ConfrimOrderScreen,
+		Orders: OrderScreen,
 		Login: LoginScreen,
 	},
 	{

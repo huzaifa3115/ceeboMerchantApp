@@ -3,14 +3,13 @@ import { View, Alert, Text, TouchableOpacity, TextInput } from 'react-native';
 // import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 // import Icon from "react-native-vector-icons/Feather";
 import { BaseScreen } from '../Screens/BaseScreen';
-import {Validator} from '../Utils/Validator';
 import styles from './style';
 import {Guest} from '../Models/Guest';
 import { _ } from 'lodash';
-import AsyncStorage from '@react-native-community/async-storage';
+import {Validator} from '../Utils/Validator';
 
 
-export class LoginScreen extends BaseScreen {
+export class ForgetPasswordScreen extends BaseScreen {
 
     constructor(props) {
         super(props);
@@ -38,13 +37,6 @@ export class LoginScreen extends BaseScreen {
             
     	}
 
-    	if(Validator.isEmpty(this.state.password)) {
-    		errorCount++;
-    		errors.passwordError = true;
-    	} else {
-    		errors.passwordError = false;
-    	}
-
     	errors.loginValidated = true;
 
     	this.setState(errors);
@@ -53,35 +45,18 @@ export class LoginScreen extends BaseScreen {
 
     }
 
-    __login(){
+    __forgetPassword(){
         let that = this;
         if(this.__validateLogin()){
             that.__activeLoader();
-            Guest.login(this.state.email,this.state.password).then(response => {
+            Guest.forgetPassword(this.state.email).then(response => {
                 console.log(response);
                 
                 that.__deactiveLoader();
                 if(response.success){
                    Alert.alert('Success', response.success);
-                   
-                    global.userData = response.data;
-                    global.isUserLoggedIn = true;
-
-                    AsyncStorage.setItem('user', JSON.stringify(global.userData));
-                    AsyncStorage.setItem('isUserLoggedIn', '1');
-                    AsyncStorage.setItem('token',  global.userData.token);
-
-                    // global.drawerComponent.setState({
-                    //     hideNavigation : false,
-                    //     isUserLoggedIn: true,
-                    //     userID : response.rider_data.id,
-                    //     userName : response.rider_data.first_name + " " + response.rider_data.last_name ,
-                    // });
-
-                    that.__goAndReset('Home');
-
                 } else{
-                    Alert.alert('Error', 'Email or password is invalid!'); 
+                    Alert.alert('Error', response.errorr);
                 }
                
             }).catch(error => {
@@ -99,7 +74,7 @@ export class LoginScreen extends BaseScreen {
             <View style={ { backgroundColor : '#f5f6f6', flex : 1 } }>
                 <View style={ [styles.loginScreenHeader,styles.borderShadowHeader] }>
                     <View>
-                        <Text style={ styles.loginScreenHeader.textHeading }>{'MERCHANT POS'}</Text>
+                        <Text style={ styles.loginScreenHeader.textHeading }>{'FORGET PASSWORD'}</Text>
                     </View>
                 </View>
                 <View style={ styles.loginMainContent }>
@@ -110,16 +85,7 @@ export class LoginScreen extends BaseScreen {
                         </View>
                     </View> 
                     <View style={ styles.loginMainContent.fields }>
-                        <View style={ [ styles.loginMainContent.fields.textFieldView ] }>
-                            <TextInput style={ [ styles.loginMainContent.fields.textFieldView.textField, ] } secureTextEntry={true} value={this.state.password} ref={ input => { this.inputs['password'] = input; }} returnKeyType={"next"} onChangeText={ (text) => this.setState({ password : text }) } underlineColorAndroid={ 'transparent' }  placeholder={ 'Password' } placeholderTextColor={'#8f979d'}></TextInput>
-                            {this.__showValidationIcon(this.state.passwordError, this.state.loginValidated)}
-                        </View>
-                    </View> 
-                    <View style={ styles.loginMainContent.fields }>
-                        <TouchableOpacity onPress={ () => this.__login() } style={ styles.primaryBtn } ><Text style={ styles.primaryBtn.primaryBtnText }>{'SIGN IN'}</Text></TouchableOpacity>
-                    </View>
-                    <View style={ { alignItems : 'center', justifyContent : 'center' } }>
-                        <TouchableOpacity onPress={ () => this.__go('ForgetPassword') } ><Text style={ [styles.primaryBtn.primaryBtnText,{ color : '#000', fontFamily: 'OpenSans-Regular' }] }>{'forget password?'}</Text></TouchableOpacity>
+                        <TouchableOpacity onPress={ () => this.__forgetPassword() } style={ styles.primaryBtn }  ><Text style={ styles.primaryBtn.primaryBtnText }>{'SUBMIT'}</Text></TouchableOpacity>
                     </View> 
                 </View>
             </View>

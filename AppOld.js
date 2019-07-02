@@ -41,7 +41,6 @@ import { StackActions, NavigationActions } from 'react-navigation';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { HomeScreen } from './App/Screens/HomeScreen';
 import { ReportsScreen } from './App/Screens/ReportsScreens';
-import { ForgetPasswordScreen } from './App/Screens/ForgetPasswordScreen';
 // import MainTabs from './App/Screens/MainTabs';
 
 
@@ -52,15 +51,7 @@ global.isUserLoggedIn = false;
 global.isDrawer = false;
 
 const MainNavigator = createStackNavigator({
-	
 	Main: {
-		screen: LoginScreen,
-		headerMode: 'float',
-		navigationOptions: {
-			header: null
-		}
-	},
-	Home: {
 		screen: HomeScreen,
 		headerMode: 'float',
 		navigationOptions: {
@@ -90,13 +81,6 @@ const MainNavigator = createStackNavigator({
 	},
 	Report: {
 		screen: ReportsScreen,
-		headerMode: 'float',
-		navigationOptions: {
-			header: null
-		}
-	},
-	ForgetPassword: {
-		screen: ForgetPasswordScreen,
 		headerMode: 'float',
 		navigationOptions: {
 			header: null
@@ -262,5 +246,5 @@ const App = createDrawerNavigator({
 
 
 module.exports = {
-	App: createAppContainer(MainNavigator)
+	App: createAppContainer(App)
 };
