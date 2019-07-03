@@ -34,9 +34,9 @@ module.exports = {
 
     loginMainContent: {
         flex: 1,
-        justifyContent: 'center',
         alignItems: 'center',
         paddingHorizontal: 20,
+        marginVertical : '20%',
         fields: {
             width: '50%',
             marginVertical: 10,
@@ -286,6 +286,16 @@ module.exports = {
         alignItems: 'center',
         justifyContent: 'center',
         width: viewportWidth,
+    },
+    loaderOverlay: {
+        flex: 1,
+        position: 'absolute',
+        left: 0,
+        top: 0,
+        opacity: 0.5,
+        backgroundColor: 'black',
+        width: viewportWidth,
+        height: '100%'
     },
 
 }; 

@@ -7,6 +7,8 @@ import {Validator} from '../Utils/Validator';
 import styles from './style';
 import {Guest} from '../Models/Guest';
 import { _ } from 'lodash';
+import { Wrapper } from '../Components';
+
 import AsyncStorage from '@react-native-community/async-storage';
 
 
@@ -62,9 +64,8 @@ export class LoginScreen extends BaseScreen {
                 
                 that.__deactiveLoader();
                 if(response.success){
-                   Alert.alert('Success', response.success);
                    
-                    global.userData = response.data;
+                    global.userData = response.merchant_data;
                     global.isUserLoggedIn = true;
 
                     AsyncStorage.setItem('user', JSON.stringify(global.userData));
@@ -95,8 +96,9 @@ export class LoginScreen extends BaseScreen {
 
 
     render() {
+        const PageLoader = (props) => this.__loader();
         return (
-            <View style={ { backgroundColor : '#f5f6f6', flex : 1 } }>
+            <Wrapper footer={this.state.loaded == false ? <PageLoader /> : null}>
                 <View style={ [styles.loginScreenHeader,styles.borderShadowHeader] }>
                     <View>
                         <Text style={ styles.loginScreenHeader.textHeading }>{'MERCHANT POS'}</Text>
@@ -122,7 +124,7 @@ export class LoginScreen extends BaseScreen {
                         <TouchableOpacity onPress={ () => this.__go('ForgetPassword') } ><Text style={ [styles.primaryBtn.primaryBtnText,{ color : '#000', fontFamily: 'OpenSans-Regular' }] }>{'forget password?'}</Text></TouchableOpacity>
                     </View> 
                 </View>
-            </View>
+            </Wrapper>
         )
     }
 }
