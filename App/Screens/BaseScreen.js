@@ -94,6 +94,7 @@ export class BaseScreen extends React.Component {
 		AsyncStorage.clear();
 		global.isUserLoggedIn = false;
 		global.userData = {};
+		Alert.alert('sss');
 		
 		this.__goAndReset('login');
 	}

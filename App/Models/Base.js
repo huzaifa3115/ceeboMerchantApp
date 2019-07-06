@@ -23,10 +23,9 @@ class Base {
 				console.log(requestParams);
 				console.log(params);
 				fetch(url, requestParams).then((response) => {
-					console.log(response);
+					
 					return response.json();
 				}).then((responseJson) => {
-					console.log(responseJson);
 					resolve(responseJson);
 				}).catch((error) => {
 					reject(error);

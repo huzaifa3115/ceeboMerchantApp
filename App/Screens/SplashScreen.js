@@ -14,19 +14,19 @@ export class SplashScreen extends BaseScreen {
         super(props);
 
         
-        requestLocationPermission();
-        async function requestLocationPermission() {
-            try {
-                const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
-                if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-                    // console.log('You can use the camera');
-                } else {
-                    //console.log('Camera permission denied');
-                }
-            } catch (err) {
-                console.warn(err);
-            }
-        }
+        // requestLocationPermission();
+        // async function requestLocationPermission() {
+        //     try {
+        //         const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
+        //         if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        //             // console.log('You can use the camera');
+        //         } else {
+        //             //console.log('Camera permission denied');
+        //         }
+        //     } catch (err) {
+        //         console.warn(err);
+        //     }
+        // }
   
         setTimeout(() => {
             
@@ -34,23 +34,14 @@ export class SplashScreen extends BaseScreen {
 
                 try {
                     let responseJson = JSON.parse(response);
-                    
                     if (responseJson) {
                         if (responseJson.id !== undefined && responseJson.id !== 0) {
                             global.userData = responseJson;
-                            this.setState({ isloading: true });
                             global.isUserLoggedIn = true;
-                            global.drawerComponent.setState({
-                                hideNavigation : false,
-                                isUserLoggedIn: true,
-                                userID : responseJson.id,
-                                userName : responseJson.first_name + " " + responseJson.last_name ,
-                            });
                             this.__goAndReset('Home');
                         }
                         
                     } else {
-                        this.setState({ isloading: true });
                         this.__goAndReset('Login');
                     }
                 } catch (e) {
@@ -69,7 +60,7 @@ export class SplashScreen extends BaseScreen {
         return (
             <Wrapper>
                 <View style={styles.splashHeader} >
-                    <Text style={{ color: '#fff', fontSize: 20, fontFamily: 'OpenSans-Bold' }}>{'Wellcome To Ceebo Riders'}</Text>
+                    <Text style={{ color: '#fff', fontSize: 20, fontFamily: 'OpenSans-Bold' }}>{'Wellcome To Ceebo Merchant'}</Text>
                 </View>
             </Wrapper>
         )

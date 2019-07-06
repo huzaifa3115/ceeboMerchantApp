@@ -14,32 +14,36 @@ import {
 } from 'react-native';
 import { _ } from 'lodash';
 import Icon from "react-native-vector-icons/Feather";
-
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import Helper from '../Utils/Helper';
 import styles from '../Screens/style';
+import { StackActions, NavigationActions } from 'react-navigation';
+
+
 
 export class Header extends React.Component {
 	render() {
-        let style = this.props.style;
-        let props = this.props.props
+		let style = this.props.style;
+		let props = this.props.props
 		return (
-			<View style={ [{ backgroundColor: '#fff', flexDirection : 'row', height: 60},styles.borderShadowHeader] }>
-				<View style={ styles.header.left }>
-                    <View style={ { flexDirection : 'row', paddingHorizontal : 10 } }>
-                        <MenuIcon props={ props } />    
-                        <View style={ { paddingLeft : 10 } }>
-                            <Text style={ styles.header.title }>{'Merchant'}</Text>
-                        </View>
+			<View style={[{ backgroundColor: '#fff', flexDirection: 'row', height: 60 }, styles.borderShadowHeader]}>
+				<View style={styles.header.left}>
+					<View style={{ flexDirection: 'row', paddingHorizontal: 10 }}>
+						<MenuIcon props={props} />
+						<View style={{ paddingLeft: 10 }}>
+							<Text style={styles.header.title}>{'Merchant'}</Text>
+						</View>
 
-                    </View>
-                </View>
-                <View style={ styles.header.center }></View>
-                <View style={ styles.header.right }>
-                    <View style={ { paddingHorizontal : 10 } }>
-                        <TouchableOpacity style={ styles.header.btn }>
-                            <Text style={ { color : '#fff', fontSize : 16, fontFamily : 'OpenSans-Bold' } }>{'Receiving New Orders'}</Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
+					</View>
+				</View>
+				<View style={styles.header.center}></View>
+				<View style={styles.header.right}>
+					<View style={{ paddingHorizontal: 10 }}>
+						<TouchableOpacity style={styles.header.btn}>
+							<Text style={{ color: '#fff', fontSize: 16, fontFamily: 'OpenSans-Bold' }}>{'Receiving New Orders'}</Text>
+						</TouchableOpacity>
+					</View>
+				</View>
 			</View>
 		);
 	}
@@ -59,12 +63,76 @@ export class Wrapper extends React.Component {
 	render() {
 		return (
 			<View style={{ flex: 1, zIndex: 99, }}>
-				<ScrollView style={{ backgroundColor: '#f5f6f6', flex: 1 }} refreshControl={this.props.refreshControl}>
+				<ScrollView style={{ backgroundColor: '#fff', flex: 1 }} refreshControl={this.props.refreshControl}>
 					{this.props.children}
 				</ScrollView>
 				{this.props.footer}
 			</View>
 		);
+	}
+}
+
+export class SideBar extends React.Component {
+	
+	render() {
+		return (
+			<View style={{ backgroundColor: '#000', width: '5%', justifyContent: 'center', alignItems: 'center' }}>
+				<View style={{ flex: 1, zIndex: 99, paddingVertical: 10 }}>
+					<ScrollView style={{ flex: 1 }}>
+						<TouchableOpacity style={styles.navBarItems}>
+							<Icon size={RFValue(20)} name={'home'} color={'#fff'} />
+						</TouchableOpacity>
+						<TouchableOpacity style={styles.navBarItems}>
+							<Icon size={RFValue(20)} name={'settings'} color={'#fff'} onPress={ () => this.props.go('Settings') } />
+						</TouchableOpacity>
+						<TouchableOpacity style={styles.navBarItems}>
+							<Icon size={RFValue(20)} name={'pie-chart'} color={'#fff'} onPress={ () => this.props.go('Report') } />
+						</TouchableOpacity>
+						<TouchableOpacity style={styles.navBarItems}>
+							<Icon size={RFValue(20)} name={'package'} color={'#fff'} onPress={ () => this.props.go('FoodItems') }  />
+						</TouchableOpacity>
+						<TouchableOpacity style={styles.navBarItems}>
+							<Icon size={RFValue(20)} name={'calendar'} color={'#fff'} />
+						</TouchableOpacity>
+					</ScrollView>
+					<View style={{ paddingBottom: '5%' }}>
+						<TouchableOpacity style={styles.navBarItems} onPress={ () => this.props.logout }>
+							<Icon size={RFValue(20)} name={'user'} color={'#fff'} onPress={ () => this.props.go('Riders') } />
+						</TouchableOpacity>
+					</View>
+					{/* <TouchableOpacity style={ styles.navBarItems }>
+                            <Icon name="home" color="#fff" size={ 30 } />
+                        </TouchableOpacity> */}
+				</View>
+			</View>
+		)
+	}
+}
+
+export class OrderListingCart extends React.Component {
+	render() {
+		let item = this.props.data;
+		return (
+			<TouchableOpacity onPress={ () => this.props.updateView(item.id)  } style={[styles.drawerMenuItem.itemBtn, styles.orderSidebarView]}>
+				{/* <TouchableOpacity> */}
+				<View style={[styles.drawerMenuItem.itemBtn.view, styles.orderSidebarView.btnView]}>
+					<View>
+						<Text style={styles.orderSidebarView.customerNameText}>{item.customer_name}</Text>
+					</View>
+					<View>
+						<Text style={[styles.drawerMenuItem.itemBtn.menuLabel, styles.orderSidebarView.orderId]}>{'#' + item.id }</Text>
+					</View>
+				</View>
+				<View style={{ flex: 0.5, alignItems: 'flex-end' }}>
+					<View>
+						<Text style={styles.orderSidebarView.customerNameText}>{'3:52pm'}</Text>
+					</View>
+					<View>
+						<Text style={[styles.drawerMenuItem.itemBtn.menuLabel, styles.orderSidebarView.orderId]}>{'$' + item.total}</Text>
+					</View>
+				</View>
+			</TouchableOpacity>
+		)
 	}
 }
 
@@ -109,12 +177,12 @@ export class CTouchable extends React.Component {
 
 export class clearView extends React.Component {
 
-    render(){
-        let space = this.props.space;
-        return(
-            <View style={ { padding : space } } />
-        )
-    }
+	render() {
+		let space = this.props.space;
+		return (
+			<View style={{ padding: space }} />
+		)
+	}
 }
 
 let inlineStyles = {

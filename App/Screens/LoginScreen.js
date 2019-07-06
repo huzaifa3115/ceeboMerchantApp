@@ -72,13 +72,6 @@ export class LoginScreen extends BaseScreen {
                     AsyncStorage.setItem('isUserLoggedIn', '1');
                     AsyncStorage.setItem('token',  global.userData.token);
 
-                    // global.drawerComponent.setState({
-                    //     hideNavigation : false,
-                    //     isUserLoggedIn: true,
-                    //     userID : response.rider_data.id,
-                    //     userName : response.rider_data.first_name + " " + response.rider_data.last_name ,
-                    // });
-
                     that.__goAndReset('Home');
 
                 } else{

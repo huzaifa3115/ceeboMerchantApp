@@ -42,6 +42,9 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { HomeScreen } from './App/Screens/HomeScreen';
 import { ReportsScreen } from './App/Screens/ReportsScreens';
 import { ForgetPasswordScreen } from './App/Screens/ForgetPasswordScreen';
+import { SplashScreen } from './App/Screens/SplashScreen';
+import { FoodItemScreen } from './App/Screens/FoodItemScreen';
+import { RidersScreen } from './App/Screens/RidersScreen';
 // import MainTabs from './App/Screens/MainTabs';
 
 
@@ -54,7 +57,7 @@ global.isDrawer = false;
 const MainNavigator = createStackNavigator({
 	
 	Main: {
-		screen: LoginScreen,
+		screen: SplashScreen,
 		headerMode: 'float',
 		navigationOptions: {
 			header: null
@@ -97,6 +100,20 @@ const MainNavigator = createStackNavigator({
 	},
 	ForgetPassword: {
 		screen: ForgetPasswordScreen,
+		headerMode: 'float',
+		navigationOptions: {
+			header: null
+		}
+	},
+	FoodItems: {
+		screen: FoodItemScreen,
+		headerMode: 'float',
+		navigationOptions: {
+			header: null
+		}
+	},
+	Riders: {
+		screen: RidersScreen,
 		headerMode: 'float',
 		navigationOptions: {
 			header: null

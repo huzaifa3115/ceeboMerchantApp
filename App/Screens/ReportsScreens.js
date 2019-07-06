@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Alert, Text, TouchableOpacity, Image, Dimensions, Switch } from 'react-native';
+import { View, Alert, Text, TouchableOpacity, Image, Dimensions, Switch, FlatList } from 'react-native';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Icon from "react-native-vector-icons/Feather";
@@ -10,6 +10,7 @@ import { _ } from 'lodash';
 import { CTouchable, Header, Wrapper, } from '../Components';
 import { ScrollView } from 'react-native-gesture-handler';
 const { width: viewportWidth, height: viewportHeight } = Dimensions.get('window');
+import { Orders } from '../Models/Orders';
 
 
 
@@ -18,41 +19,36 @@ export class ReportsScreen extends BaseScreen {
     constructor(props) {
         super(props);
         this.state = {
-            email: '',
-            password: '',
-            loginValidated: false,
-            usernameError: true,
-            passwordError: true,
-            isShowPassword: true,
+            reports: [],
         }
+
+        this.__getReports();
+    }
+
+    __getReports() {
+        this.__activeLoader();
+
+        Orders.reports().then(response => {
+            console.log(response);
+            if (response.data.length > 0) {
+                this.setState({
+                    reports: response.data
+                })
+            }
+            this.__deactiveLoader();
+        }).catch(error => {
+            this.__deactiveLoader();
+        })
     }
 
 
     render() {
         return (
             <View style={{ backgroundColor: '#fff', flex: 1 }}>
-                <View style={ [{ backgroundColor : '#ffffff', padding : 20, }, styles.borderShadowHeader] }>
-                    <View style={ { flexDirection : 'row' } }>
-                        <View style={ { flex : 0.3 } }>
-                            <TouchableOpacity  onPress={() => this.props.navigation.openDrawer()}>
-                                <Icon name={'menu'} size={27} color={'#0077ae'} />
-                            </TouchableOpacity>
-                        </View>
-                        <View style={ { flex : 0.4, alignItems : 'center' } }>
-                            <Text style={ [styles.headerTitle, { fontSize : 22 }] }>{'Reports'}</Text>
-                        </View>
-                        {/* <View style={ { flex : 0.3, alignItems : 'flex-end', } }>
-                            <View style={ { flexDirection : 'row' } }>
-                                <TouchableOpacity>
-                                    <Icon name={'plus'} size={27} color={'#0077ae'} />
-                                </TouchableOpacity>
-                                <TouchableOpacity>
-                                    <Icon name={'search'} size={27} color={'#0077ae'} />
-                                </TouchableOpacity>
-                            </View>
-
-                        </View> */}
-                    </View>
+                <View style={[{ flexDirection: 'row', backgroundColor: '#ffffff', justifyContent: 'center', alignItems: 'center', paddingVertical: 10 }, styles.borderShadowHeader,]}>
+                    <View style={[styles.headerFlexView, { borderRightWidth: 0 }]}>
+                        <Text style={styles.headerTitle}>{'Reports'}</Text>
+                    </View >
                 </View>
                 <ScrollView>
                     {/* content */}
@@ -90,62 +86,27 @@ export class ReportsScreen extends BaseScreen {
                             <Text style={[styles.drawerMenuItem.itemBtn.menuLabel, styles.reportsTableTh]}>{'Total'}</Text>
                         </View>
                     </View>
-                    <View style={styles.reportTableView}>
-                        <View style={styles.reportTableView.view}>
-                            <Text style={[styles.drawerMenuItem.itemBtn.menuLabel, styles.reportsTableText]}>{'04:56 PM'}</Text>
-                        </View>
-                        <View style={styles.reportTableView.viewLeft}>
-                            <Text style={[styles.drawerMenuItem.itemBtn.menuLabel, styles.reportsTableTh]}>{'#1111'}</Text>
-                        </View>
-                        <View style={styles.reportTableView.viewLeft}>
-                            <Text style={[styles.drawerMenuItem.itemBtn.menuLabel, styles.reportsTableText]}>{'Vitali'}</Text>
-                        </View>
-                        <View style={styles.reportTableView.view}>
-                            <Text style={[styles.drawerMenuItem.itemBtn.menuLabel, styles.reportsTableText]}>{'$83.76'}</Text>
-                        </View>
-                    </View>
-                    <View style={styles.reportTableView}>
-                        <View style={styles.reportTableView.view}>
-                            <Text style={[styles.drawerMenuItem.itemBtn.menuLabel, styles.reportsTableText]}>{'04:56 PM'}</Text>
-                        </View>
-                        <View style={styles.reportTableView.viewLeft}>
-                            <Text style={[styles.drawerMenuItem.itemBtn.menuLabel, styles.reportsTableTh]}>{'#1111'}</Text>
-                        </View>
-                        <View style={styles.reportTableView.viewLeft}>
-                            <Text style={[styles.drawerMenuItem.itemBtn.menuLabel, styles.reportsTableText]}>{'Vitali'}</Text>
-                        </View>
-                        <View style={styles.reportTableView.view}>
-                            <Text style={[styles.drawerMenuItem.itemBtn.menuLabel, styles.reportsTableText]}>{'$83.76'}</Text>
-                        </View>
-                    </View>
-                    <View style={styles.reportTableView}>
-                        <View style={styles.reportTableView.view}>
-                            <Text style={[styles.drawerMenuItem.itemBtn.menuLabel, styles.reportsTableText]}>{'04:56 PM'}</Text>
-                        </View>
-                        <View style={styles.reportTableView.viewLeft}>
-                            <Text style={[styles.drawerMenuItem.itemBtn.menuLabel, styles.reportsTableTh]}>{'#1111'}</Text>
-                        </View>
-                        <View style={styles.reportTableView.viewLeft}>
-                            <Text style={[styles.drawerMenuItem.itemBtn.menuLabel, styles.reportsTableText]}>{'Vitali'}</Text>
-                        </View>
-                        <View style={styles.reportTableView.view}>
-                            <Text style={[styles.drawerMenuItem.itemBtn.menuLabel, styles.reportsTableText]}>{'$83.76'}</Text>
-                        </View>
-                    </View>
-                    <View style={styles.reportTableView}>
-                        <View style={styles.reportTableView.view}>
-                            <Text style={[styles.drawerMenuItem.itemBtn.menuLabel, styles.reportsTableText]}>{'04:56 PM'}</Text>
-                        </View>
-                        <View style={styles.reportTableView.viewLeft}>
-                            <Text style={[styles.drawerMenuItem.itemBtn.menuLabel, styles.reportsTableTh]}>{'#1111'}</Text>
-                        </View>
-                        <View style={styles.reportTableView.viewLeft}>
-                            <Text style={[styles.drawerMenuItem.itemBtn.menuLabel, styles.reportsTableText]}>{'Vitali'}</Text>
-                        </View>
-                        <View style={styles.reportTableView.view}>
-                            <Text style={[styles.drawerMenuItem.itemBtn.menuLabel, styles.reportsTableText]}>{'$83.76'}</Text>
-                        </View>
-                    </View>
+                    <FlatList
+                        extraData={this.state}
+                        data={this.state.reports}
+                        renderItem={({ item }) =>
+                            <View style={styles.reportTableView}>
+                                <View style={styles.reportTableView.view}>
+                                    <Text style={[styles.drawerMenuItem.itemBtn.menuLabel, styles.reportsTableText]}>{item.date}</Text>
+                                </View>
+                                <View style={styles.reportTableView.viewLeft}>
+                                    <Text style={[styles.drawerMenuItem.itemBtn.menuLabel, styles.reportsTableTh]}>{item.total_orders}</Text>
+                                </View>
+                                <View style={styles.reportTableView.viewLeft}>
+                                    <Text style={[styles.drawerMenuItem.itemBtn.menuLabel, styles.reportsTableText]}>{'Vitali'}</Text>
+                                </View>
+                                <View style={styles.reportTableView.view}>
+                                    <Text style={[styles.drawerMenuItem.itemBtn.menuLabel, styles.reportsTableText]}>{item.total_earns}</Text>
+                                </View>
+                            </View>
+                        }
+                    />
+
                     {/* content */}
                 </ScrollView>
             </View>

@@ -36,18 +36,18 @@ module.exports = {
         flex: 1,
         alignItems: 'center',
         paddingHorizontal: 20,
-        marginVertical : '20%',
+        marginVertical: '20%',
         fields: {
             width: '50%',
             marginVertical: 10,
             textFieldView: {
-                flexDirection : 'row',
+                flexDirection: 'row',
                 borderBottomWidth: 0.3,
                 borderBottomColor: '#8f979d',
                 textField: {
                     color: '#8f979d',
                     fontSize: 18,
-                    width : '90%'
+                    width: '90%'
                 }
             }
         }
@@ -228,7 +228,7 @@ module.exports = {
         },
         orderId: {
             fontFamily: 'OpenSans-Regular',
-            fontSize: RFValue(22),
+            fontSize: RFValue(20),
             color: '#152330'
         }
     },
@@ -238,17 +238,17 @@ module.exports = {
         borderBottomWidth: 2,
         borderBottomColor: '#f5f6f8',
         flexDirection: 'row',
-        view : {
-            padding: 20, 
-            flex: 0.3 
+        view: {
+            padding: 20,
+            flex: 0.3
         },
-        viewCenter : {
-            padding: 20, 
-            flex: 0.3 
+        viewCenter: {
+            padding: 20,
+            flex: 0.3
         },
-        viewLeft : {
-            padding: 20, 
-            flex: 0.2 
+        viewLeft: {
+            padding: 20,
+            flex: 0.2
         },
         headingText: {
             color: '#a8adb1',
@@ -276,9 +276,9 @@ module.exports = {
         textAlign: 'center'
     },
 
-    navBarItems : {
+    navBarItems: {
         // padding : 20,
-        paddingVertical : 20
+        paddingVertical: 20
     },
     splashHeader: {
         backgroundColor: '#23BC7D',
@@ -292,10 +292,51 @@ module.exports = {
         position: 'absolute',
         left: 0,
         top: 0,
-        opacity: 0.5,
+        // opacity: 0.5,
         backgroundColor: 'black',
         width: viewportWidth,
         height: '100%'
     },
+
+    headerFlexView: {
+        borderRightColor: '#f5f6f8',
+        borderRightWidth: 3,
+        justifyContent: 'center',
+        alignItems: 'center',
+        view: {
+            backgroundColor: '#ffffff',
+            padding: '3%',
+            borderRightColor: '#f5f6f8',
+            borderRightWidth: 2,
+        }
+    },
+
+    foodItemView: {
+        width: '50%', 
+        borderColor: '#f5f6f8', 
+        borderWidth: 2, 
+        borderBottomWidth: 2, 
+        marginVertical: 10,
+        subItemText: {
+            fontFamily: 'OpenSans-Bold', 
+            fontSize: 16, 
+            color: '#B4B5B9'
+        }
+    },
+
+    footerBtnsView : {
+        flexDirection : 'row',
+        marginHorizontal : '2%',
+        marginVertical : '2%',
+        btn : {
+            flex : 0.5, 
+            backgroundColor : '#EDEEF0', 
+            paddingHorizontal : 10, 
+            paddingVertical : 15, 
+            justifyContent : 'center', 
+            alignItems : 'center',
+            marginHorizontal : 5
+        }
+    }
 
 }; 
