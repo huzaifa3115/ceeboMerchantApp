@@ -45,6 +45,8 @@ import { ForgetPasswordScreen } from './App/Screens/ForgetPasswordScreen';
 import { SplashScreen } from './App/Screens/SplashScreen';
 import { FoodItemScreen } from './App/Screens/FoodItemScreen';
 import { RidersScreen } from './App/Screens/RidersScreen';
+import { SupportScreens } from './App/Screens/Settings/Support';
+import { HardwareScreens } from './App/Screens/Settings/Hardware';
 // import MainTabs from './App/Screens/MainTabs';
 
 
@@ -114,6 +116,20 @@ const MainNavigator = createStackNavigator({
 	},
 	Riders: {
 		screen: RidersScreen,
+		headerMode: 'float',
+		navigationOptions: {
+			header: null
+		}
+	},
+	Support: {
+		screen: SupportScreens,
+		headerMode: 'float',
+		navigationOptions: {
+			header: null
+		}
+	},
+	Hardware: {
+		screen: HardwareScreens,
 		headerMode: 'float',
 		navigationOptions: {
 			header: null

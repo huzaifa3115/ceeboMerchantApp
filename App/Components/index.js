@@ -10,14 +10,19 @@ import {
 	Image,
 	Modal,
 	Switch,
-	Picker
+	Picker,
+	Alert,
+	Dimensions
 } from 'react-native';
 import { _ } from 'lodash';
+import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Icon from "react-native-vector-icons/Feather";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import Helper from '../Utils/Helper';
 import styles from '../Screens/style';
 import { StackActions, NavigationActions } from 'react-navigation';
+const { width: viewportWidth, height: viewportHeight } = Dimensions.get('window');
+
 
 
 
@@ -72,32 +77,117 @@ export class Wrapper extends React.Component {
 	}
 }
 
-export class SideBar extends React.Component {
+export class ContentWithMenu extends React.Component {
+	render() {
+		return (
+			<View style={{ flexDirection: 'row' }}>
+				<SideBar go={this.props.go} />
+				<View style={{ backgroundColor: '#f5f6f8', height: viewportHeight, width: '95%' }}>
+					{this.props.children}
+				</View>
+			</View>
+		)
+	}
+}
+
+export class SettingsMenu extends React.Component {
 	
+	__logoutConfirm() {
+        Alert.alert('Confirm', 'Are you sure you want to log out?', [
+            {text: 'Cancel', style: 'cancel'},
+            {text: 'Logout', onPress: () => this.props.logout() },
+        ]);
+	}
+	
+	render() {
+		return (
+			<View style={{ flex: 3.5, borderRightColor: '#f5f6f8', borderRightWidth: 3, paddingBottom: '5%' }}>
+				<ScrollView>
+					<TouchableOpacity style={[styles.drawerMenuItem.itemBtn, styles.orderSidebarView]} onPress={ () => this.props.go('Support') }>
+						{/* <TouchableOpacity> */}
+						<View style={[styles.drawerMenuItem.itemBtn.view, { flex: 0.7 }]}>
+							<View >
+								<Icon size={RFValue(23)} name={'home'} color={'#0077ae'} />
+							</View>
+							<View style={{ paddingHorizontal: 10 }} >
+								<Text style={[styles.drawerMenuItem.itemBtn.menuLabel, { fontFamily: 'OpenSans-Regular', fontSize: 18 }]}>{'Hardware'}</Text>
+							</View>
+						</View>
+						<View style={{ flex: 0.3, alignItems: 'flex-end' }}>
+							<Icon size={RFValue(30)} name={'chevron-right'} color={'#c9c9c9'} />
+						</View>
+					</TouchableOpacity>
+					<TouchableOpacity style={[styles.drawerMenuItem.itemBtn, styles.orderSidebarView]} onPress={ () => this.props.go('Hardware') }>
+						{/* <TouchableOpacity> */}
+						<View style={[styles.drawerMenuItem.itemBtn.view, { flex: 0.7 }]}>
+							<View >
+								<FontAwesome size={RFValue(23)} name={'life-ring'} color={'#0077ae'} />
+							</View>
+							<View style={{ paddingHorizontal: 10 }} >
+								<Text style={[styles.drawerMenuItem.itemBtn.menuLabel, { fontFamily: 'OpenSans-Regular', fontSize: 18 }]}>{'Support'}</Text>
+							</View>
+						</View>
+						<View style={{ flex: 0.3, alignItems: 'flex-end' }}>
+							<Icon size={RFValue(30)} name={'chevron-right'} color={'#c9c9c9'} />
+						</View>
+					</TouchableOpacity>
+					<TouchableOpacity style={[styles.drawerMenuItem.itemBtn, styles.orderSidebarView]}>
+						{/* <TouchableOpacity> */}
+						<View style={[styles.drawerMenuItem.itemBtn.view, { flex: 0.7 }]}>
+							<View >
+								<Icon size={RFValue(23)} name={'bell'} color={'#0077ae'} />
+							</View>
+							<View style={{ paddingHorizontal: 10 }} >
+								<Text style={[styles.drawerMenuItem.itemBtn.menuLabel, { fontFamily: 'OpenSans-Regular', fontSize: 18 }]}>{'Open Ceebo web (this is a link to open website'}</Text>
+							</View>
+						</View>
+						<View style={{ flex: 0.3, alignItems: 'flex-end' }}>
+							<Icon size={RFValue(30)} name={'chevron-right'} color={'#c9c9c9'} />
+						</View>
+					</TouchableOpacity>
+					<TouchableOpacity style={[styles.drawerMenuItem.itemBtn, styles.orderSidebarView]} onPress={ () => this.__logoutConfirm() }>
+						{/* <TouchableOpacity> */}
+						<View style={[styles.drawerMenuItem.itemBtn.view, { flex: 0.7 }]}>
+							<View >
+								<Icon size={RFValue(23)} name={'log-out'} color={'red'} />
+							</View>
+							<View style={{ paddingHorizontal: 10 }} >
+								<Text style={[styles.drawerMenuItem.itemBtn.menuLabel, { fontFamily: 'OpenSans-Bold', fontSize: 18, color: 'red' }]}>{'logout'}</Text>
+							</View>
+						</View>
+						<View style={{ flex: 0.3, alignItems: 'flex-end' }}>
+							<Icon size={RFValue(30)} name={'chevron-right'} color={'#c9c9c9'} />
+						</View>
+					</TouchableOpacity>
+				</ScrollView>
+			</View>
+		)
+	}
+}
+
+export class SideBar extends React.Component {
+
 	render() {
 		return (
 			<View style={{ backgroundColor: '#000', width: '5%', justifyContent: 'center', alignItems: 'center' }}>
 				<View style={{ flex: 1, zIndex: 99, paddingVertical: 10 }}>
 					<ScrollView style={{ flex: 1 }}>
-						<TouchableOpacity style={styles.navBarItems}>
+						<TouchableOpacity style={styles.navBarItems} onPress={() => this.props.go('Home')}>
 							<Icon size={RFValue(20)} name={'home'} color={'#fff'} />
 						</TouchableOpacity>
-						<TouchableOpacity style={styles.navBarItems}>
-							<Icon size={RFValue(20)} name={'settings'} color={'#fff'} onPress={ () => this.props.go('Settings') } />
+						<TouchableOpacity style={styles.navBarItems} onPress={() => this.props.go('Riders')}>
+							<Icon size={RFValue(20)} name={'inbox'} color={'#fff'}  />
 						</TouchableOpacity>
-						<TouchableOpacity style={styles.navBarItems}>
-							<Icon size={RFValue(20)} name={'pie-chart'} color={'#fff'} onPress={ () => this.props.go('Report') } />
+						<TouchableOpacity style={styles.navBarItems} onPress={() => this.props.go('Report')}>
+							<Icon size={RFValue(20)} name={'grid'} color={'#fff'}  />
 						</TouchableOpacity>
-						<TouchableOpacity style={styles.navBarItems}>
-							<Icon size={RFValue(20)} name={'package'} color={'#fff'} onPress={ () => this.props.go('FoodItems') }  />
-						</TouchableOpacity>
-						<TouchableOpacity style={styles.navBarItems}>
-							<Icon size={RFValue(20)} name={'calendar'} color={'#fff'} />
+						<TouchableOpacity style={styles.navBarItems} onPress={() => this.props.go('Order')}>
+							<Icon size={RFValue(20)} name={'truck'} color={'#fff'} />
 						</TouchableOpacity>
 					</ScrollView>
 					<View style={{ paddingBottom: '5%' }}>
-						<TouchableOpacity style={styles.navBarItems} onPress={ () => this.props.logout }>
-							<Icon size={RFValue(20)} name={'user'} color={'#fff'} onPress={ () => this.props.go('Riders') } />
+						<TouchableOpacity style={styles.navBarItems} onPress={() => this.props.logout}>
+							<Icon size={RFValue(20)} name={'settings'} color={'#fff'} onPress={() => this.props.go('Settings')} />
 						</TouchableOpacity>
 					</View>
 					{/* <TouchableOpacity style={ styles.navBarItems }>
@@ -113,14 +203,14 @@ export class OrderListingCart extends React.Component {
 	render() {
 		let item = this.props.data;
 		return (
-			<TouchableOpacity onPress={ () => this.props.updateView(item.id)  } style={[styles.drawerMenuItem.itemBtn, styles.orderSidebarView]}>
+			<TouchableOpacity onPress={() => this.props.updateView(item.id)} style={[styles.drawerMenuItem.itemBtn, styles.orderSidebarView]}>
 				{/* <TouchableOpacity> */}
 				<View style={[styles.drawerMenuItem.itemBtn.view, styles.orderSidebarView.btnView]}>
 					<View>
 						<Text style={styles.orderSidebarView.customerNameText}>{item.customer_name}</Text>
 					</View>
 					<View>
-						<Text style={[styles.drawerMenuItem.itemBtn.menuLabel, styles.orderSidebarView.orderId]}>{'#' + item.id }</Text>
+						<Text style={[styles.drawerMenuItem.itemBtn.menuLabel, styles.orderSidebarView.orderId]}>{'#' + item.id}</Text>
 					</View>
 				</View>
 				<View style={{ flex: 0.5, alignItems: 'flex-end' }}>

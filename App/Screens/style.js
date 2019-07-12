@@ -224,7 +224,7 @@ module.exports = {
         },
         customerNameText: {
             color: '#a8adb1',
-            fontSize: RFValue(18)
+            fontSize: RFValue(20)
         },
         orderId: {
             fontFamily: 'OpenSans-Regular',
@@ -337,6 +337,11 @@ module.exports = {
             alignItems : 'center',
             marginHorizontal : 5
         }
+    },
+
+    ridersDetailBanner : {
+        color: '#152330', 
+        fontFamily: 'OpenSans-Regular'
     }
 
 }; 
