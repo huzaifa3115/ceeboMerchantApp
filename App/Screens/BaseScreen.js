@@ -95,7 +95,7 @@ export class BaseScreen extends React.Component {
 		global.isUserLoggedIn = false;
 		global.userData = {};
 		
-		this.__goAndReset('login');
+		this.__goAndReset('Login');
 	}
 
 
