@@ -69,10 +69,7 @@ export class HomeScreen extends BaseScreen {
     render() {
         const PageLoader = (props) => this.__loader();
         return (
-            <Wrapper footer={this.state.loaded == false ? <PageLoader /> : null}>
-                <ContentWithMenu  go={this.__go.bind(this)}>
-                </ContentWithMenu>
-            </Wrapper>
+            <View><Text>{'sdffsdffffffffffffffffffffffffffffffffffffffffffffff'}</Text></View>
         )
     }
 }
