@@ -92,11 +92,11 @@ export class LoginScreen extends BaseScreen {
         const PageLoader = (props) => this.__loader();
         return (
             <Wrapper footer={this.state.loaded == false ? <PageLoader /> : null}>
-                <View style={ [styles.loginScreenHeader,styles.borderShadowHeader] }>
+                {/* <View style={ [styles.loginScreenHeader,styles.borderShadowHeader] }>
                     <View>
                         <Text style={ styles.loginScreenHeader.textHeading }>{'MERCHANT POS'}</Text>
                     </View>
-                </View>
+                </View> */}
                 <View style={ styles.loginMainContent }>
                     <View style={ styles.loginMainContent.fields }>
                         <View style={ [ styles.loginMainContent.fields.textFieldView ] }>
