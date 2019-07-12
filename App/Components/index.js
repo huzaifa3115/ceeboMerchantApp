@@ -175,13 +175,13 @@ export class SideBar extends React.Component {
 						<TouchableOpacity style={styles.navBarItems} onPress={() => this.props.go('Home')}>
 							<Icon size={RFValue(20)} name={'home'} color={'#fff'} />
 						</TouchableOpacity>
-						<TouchableOpacity style={styles.navBarItems} onPress={() => this.props.go('Riders')}>
+						<TouchableOpacity style={styles.navBarItems} onPress={() => this.props.go('Order')}>
 							<Icon size={RFValue(20)} name={'inbox'} color={'#fff'}  />
 						</TouchableOpacity>
 						<TouchableOpacity style={styles.navBarItems} onPress={() => this.props.go('Report')}>
 							<Icon size={RFValue(20)} name={'grid'} color={'#fff'}  />
 						</TouchableOpacity>
-						<TouchableOpacity style={styles.navBarItems} onPress={() => this.props.go('Order')}>
+						<TouchableOpacity style={styles.navBarItems} onPress={() => this.props.go('Riders')}>
 							<Icon size={RFValue(20)} name={'truck'} color={'#fff'} />
 						</TouchableOpacity>
 					</ScrollView>
